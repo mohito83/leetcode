@@ -1,5 +1,5 @@
 class ReverseInteger {
-    public int reverse(int x) {
+    public static int reverse(int x) {
         if (x == 0) {
             return x;
         }
@@ -24,5 +24,9 @@ class ReverseInteger {
         }
 
         return result;
+    }
+ 
+    public static void main(String[] agrs) {
+        System.out.println("result:" + reverse(3321249));
     }
 }
