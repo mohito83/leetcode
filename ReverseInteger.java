@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 class ReverseInteger {
     public static int reverse(int x) {
         if (x == 0) {
