@@ -7,7 +7,7 @@ public class FindKthElement {
         }
 
         Node current = head, runner = head;
-        
+
         while(runner.next != null) {
             runner = runner.next;
             if (--k < 1) {
