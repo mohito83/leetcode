@@ -1,4 +1,4 @@
-package src.main.java.strings;
+package strings;
 
 public class CheckIfPermutation {
     boolean isPermutation (String str1, String str2) {

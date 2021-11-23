@@ -1,4 +1,4 @@
-package src.main.java.linkedlist;
+package linkedlist;
 
 public class FindKthElement {
     Node getKthElementFromEnd(Node head , int k) {

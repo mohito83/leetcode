@@ -1,4 +1,4 @@
-package src.main.java.matrix;
+package matrix;
 
 public class ZeroMatrix {
 

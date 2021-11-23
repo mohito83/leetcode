@@ -1,4 +1,4 @@
-package src.main.java;
+package misc;
 
 class RemoveDupFromSortedArr {
     public static int removeDuplicates(int[] nums) {

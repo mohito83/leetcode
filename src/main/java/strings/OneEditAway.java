@@ -1,4 +1,4 @@
-package src.main.java.strings;
+package strings;
 
 public class OneEditAway {
     boolean isOneEditingAway (String str1, String str2) {

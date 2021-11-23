@@ -1,4 +1,4 @@
-package src.main.java;
+package strings;
 
 class DetectCapitals {
     public static boolean detectCapitalUse(String word) {
@@ -9,12 +9,12 @@ class DetectCapitals {
                 upperCaseCount++;
             }
         }
-        
+
         if (upperCaseCount == 0 || upperCaseCount == word.length() || (upperCaseCount == 1 && Character.isUpperCase(word.charAt(0)))) {
             isCorrectUsage = true;
         }
-        
-        
+
+
         return isCorrectUsage;
     }
 

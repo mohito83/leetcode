@@ -1,4 +1,4 @@
-package src.main.java.matrix;
+package matrix;
 
 public class RotateMatrix {
     void rotateMatrix(int N, int[][] arr) {

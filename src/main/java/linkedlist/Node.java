@@ -1,4 +1,4 @@
-package src.main.java.linkedlist;
+package linkedlist;
 
 public class Node {
     int val;

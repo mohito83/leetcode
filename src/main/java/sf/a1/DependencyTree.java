@@ -1,6 +1,8 @@
-package src.main.java.sf.a1;
+package sf.a1;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class DependencyTree {
 
     List<String> parseCommand(String path) {
         List<String> inputCommandList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File(path)))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(getClass().getClassLoader().getResource(path).toURI())))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 inputCommandList.add(line);
@@ -29,6 +31,8 @@ public class DependencyTree {
             e.printStackTrace();
         } catch (IOException ioException) {
             ioException.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
 
         return inputCommandList;
