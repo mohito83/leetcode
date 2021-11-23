@@ -32,4 +32,8 @@ public class TreeNode {
     public void setVal(int val) {
         this.val = val;
     }
+
+    public String toString() {
+        return this.val+"";
+    }
 }

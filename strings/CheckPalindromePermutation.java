@@ -1,8 +1,5 @@
 package strings;
 
-import com.sun.tools.javac.comp.Check;
-
-import java.awt.peer.ListPeer;
 import java.util.HashMap;
 import java.util.Map;
 
