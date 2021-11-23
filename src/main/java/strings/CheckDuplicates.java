@@ -1,4 +1,4 @@
-package strings;
+package src.main.java.strings;
 
 public class CheckDuplicates {
     boolean containsDuplicate(String str) {

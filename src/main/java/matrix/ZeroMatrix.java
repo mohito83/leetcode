@@ -1,4 +1,4 @@
-package matrix;
+package src.main.java.matrix;
 
 public class ZeroMatrix {
 
@@ -22,7 +22,7 @@ public class ZeroMatrix {
         zm.printMatrix(4,arr);
 
         zm.zerofyMatrix(arr);
-        System.out.println("After rotating matrix:");
+        System.out.println("After rotating src.main.java.matrix:");
         zm.printMatrix(4, arr);
     }
 

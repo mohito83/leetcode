@@ -1,4 +1,4 @@
-package matrix;
+package src.main.java.matrix;
 
 public class RotateMatrix {
     void rotateMatrix(int N, int[][] arr) {
@@ -33,7 +33,7 @@ public class RotateMatrix {
         rm.printMatrix(4,arr);
 
         rm.rotateMatrix(4, arr);
-        System.out.println("After rotating matrix:");
+        System.out.println("After rotating src.main.java.matrix:");
         rm.printMatrix(4, arr);
     }
 }

@@ -1,8 +1,8 @@
-package trees;
+package src.main.java.trees;
 
 import java.util.Stack;
 
-public class PostorderTraversal {
+public class InorderTraversal {
     private TreeNode root;
 
     TreeNode init() {
@@ -22,52 +22,44 @@ public class PostorderTraversal {
         return root;
     }
 
-    void postorderRecursive(TreeNode root) {
+    void inorderRecursive(TreeNode root) {
         if( root == null) {
             return;
         }
-        postorderRecursive(root.getLeft());
-        postorderRecursive(root.getRight());
-
+        inorderRecursive(root.getLeft());
         System.out.print(root.getVal());
+        inorderRecursive(root.getRight());
     }
 
-    void postorderIterative(TreeNode root) {
+    void inorderIterative(TreeNode root) {
         if (root == null) {
             return;
         }
 
         Stack<TreeNode> s = new Stack<>();
         TreeNode current = root;
-        TreeNode pre = null;
 
         while (current != null || !s.empty()) {
             if (current != null) {
                 s.push(current);
                 current = current.getLeft();
             } else {
-                current = s.peek();
-
-                if (current.getRight() == null || pre == current.getRight()) {
-                    System.out.print(current.getVal());
-                    s.pop();
-                    pre = current;
-                    current = null;
-                } else {
-                    current = current.getRight();
-                }
+                current = s.pop();
+                System.out.print(current.getVal());
+                current = current.getRight();
             }
+
         }
     }
 
     public static void main(String[] args) {
-        PostorderTraversal postorder = new PostorderTraversal();
-        TreeNode root = postorder.init();
+        InorderTraversal inorder = new InorderTraversal();
+        TreeNode root = inorder.init();
 
         System.out.println("\n Recursive approach: ");
-        postorder.postorderRecursive(root);
+        inorder.inorderRecursive(root);
 
         System.out.println("\n Iterative approach: ");
-        postorder.postorderIterative(root);
+        inorder.inorderIterative(root);
     }
 }

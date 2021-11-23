@@ -1,7 +1,6 @@
-package trees;
+package src.main.java.trees;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

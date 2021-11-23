@@ -1,4 +1,4 @@
-package trees;
+package src.main.java.trees;
 
 public class TreeNode {
     private TreeNode left;

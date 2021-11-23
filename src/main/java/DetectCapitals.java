@@ -1,3 +1,5 @@
+package src.main.java;
+
 class DetectCapitals {
     public static boolean detectCapitalUse(String word) {
         boolean isCorrectUsage = false;

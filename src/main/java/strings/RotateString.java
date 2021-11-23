@@ -1,4 +1,4 @@
-package strings;
+package src.main.java.strings;
 
 public class RotateString {
 
@@ -39,6 +39,6 @@ public class RotateString {
         String str1 = "waterbottle";
         String str2 = "erbottlewat";
 
-        System.out.println("Are these strings rotation of on e another? " + rs.isSubString(str1, str2));
+        System.out.println("Are these src.main.java.strings rotation of on e another? " + rs.isSubString(str1, str2));
     }
 }

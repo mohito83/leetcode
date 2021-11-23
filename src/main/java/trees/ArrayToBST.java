@@ -1,4 +1,4 @@
-package trees;
+package src.main.java.trees;
 
 public class ArrayToBST {
     TreeNode getMinimalBST (int[] arr) {

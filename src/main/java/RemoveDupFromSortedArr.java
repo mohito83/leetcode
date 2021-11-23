@@ -1,3 +1,5 @@
+package src.main.java;
+
 class RemoveDupFromSortedArr {
     public static int removeDuplicates(int[] nums) {
         if (nums.length == 0) {

@@ -1,4 +1,4 @@
-package linkedlist;
+package src.main.java.linkedlist;
 
 public class CheckPalindrome {
     boolean isPalindrome(Node head) {

@@ -1,4 +1,4 @@
-package strings;
+package src.main.java.strings;
 
 public class URLify {
     String convertToUrl(String str, int len) {
