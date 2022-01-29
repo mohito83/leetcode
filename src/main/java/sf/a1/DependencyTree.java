@@ -6,9 +6,9 @@ import java.util.*;
 
 public class DependencyTree {
 
-    private List<String> installedServiceList = new ArrayList<>();
+    private Set<ServiceNode> installedServiceList = new HashSet<>();
     private Map<String, ServiceNode> map = new HashMap<>();
-    private Map<ServiceNode, LinkedList<ServiceNode>> installedServicesMap = new HashMap<>();
+    private List<ServiceNode> dependencyGraph = new ArrayList<>();
 
     public static void main(String[] args) {
         DependencyTree dependencyTree = new DependencyTree();
@@ -38,58 +38,111 @@ public class DependencyTree {
     }
 
     void buildDependencyGraph(String[] services) {
-        LinkedList<ServiceNode> list = new LinkedList<>();
-        for (int i = 1; i < services.length; i++) {
-            list.offer(new ServiceNode(services[i]));
+        ServiceNode parent = null;
+        if (map.containsKey(services[1])) {
+            parent = map.get(services[1]);
+        } else {
+            parent = new ServiceNode(services[1]);
+            map.put(services[1], parent);
         }
-        ServiceNode key = new ServiceNode(services[0]);
-        installedServicesMap.put(key, list);
-        List<ServiceNode> cyclicDependency = cycleFound();
+
+        dependencyGraph.add(parent);
+
+        for (int i = 2; i < services.length; i++) {
+            ServiceNode neighbor = null;
+            if (map.containsKey(services[i])) {
+                neighbor = map.get(services[i]);
+            } else {
+                neighbor = new ServiceNode(services[i]);
+            }
+            map.put(services[i], neighbor);
+            parent.addDependentService(neighbor);
+        }
+
+        List<ServiceNode> cyclicDependency = cycleFound(parent);
         if(!cyclicDependency.isEmpty()) {
-            installedServicesMap.remove(key);
-            System.out.println("Cannot add to dependency tree" + cyclicDependency.get(0) + " is already dependent on " + cyclicDependency.get(1));
+            //revertToPrevState
+            System.out.println("Cannot add to dependency tree " + cyclicDependency.get(0).name + " is already dependent on " + cyclicDependency.get(1).name);
+            Iterator<ServiceNode> iter = parent.getDependentServices().iterator();
+            while (iter.hasNext()) {
+                ServiceNode serviceNode = iter.next();
+                parent.removeDependentService(serviceNode);
+            }
+            dependencyGraph.remove(parent);
         }
     }
 
+
     /**
-     * If cycle detected in the grpah then delete the cyclic link and print error message.
+     * If cycle detected in the graph then delete the cyclic link and print error message.
      * @return
      */
-    private List<ServiceNode> cycleFound() {
-        Set<ServiceNode> dependencySet = new HashSet<>();
-        for (Map.Entry<ServiceNode, LinkedList<ServiceNode>> entry: installedServicesMap.entrySet()) {
-            //if (!dependencySet.add())
+    private List<ServiceNode> cycleFound(ServiceNode root) {
+        Set<ServiceNode> visited = new HashSet<>();
+        LinkedList<ServiceNode> queue = new LinkedList<>();
+        List<ServiceNode> result = new ArrayList<>();
+
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            ServiceNode current = queue.poll();
+            if (visited.add(current)) {
+                for (ServiceNode child : current.getDependentServices()) {
+                    queue.offer(child);
+                }
+            } else {
+                // populate result
+                for (ServiceNode neighbor : current.getDependentServices()) {
+                    if(visited.contains(neighbor)) {
+                        result.add(neighbor);
+                        result.add(current);
+                        return result;
+                    }
+                }
+            }
         }
-        return new ArrayList<>(dependencySet);
+
+        return result;
     }
 
     void installService(String serviceName) {
-        LinkedList<ServiceNode> stack = installedServicesMap.get(serviceName);
-        boolean isExplicit = stack.size() == 1;
-        while (!stack.isEmpty()) {
-            ServiceNode service = stack.pop();
-            if (!service.isEXplicit) {
-                service.isEXplicit = isExplicit;
+        ServiceNode root = null;
+        if (!map.containsKey(serviceName)) {
+            root = new ServiceNode(serviceName);
+            root.setExplicit(true);
+            root.setInstalled(true);
+            System.out.println("Installing " + root.name);
+            installedServiceList.add(root);
+        } else {
+            root = map.get(serviceName);
+            Stack<ServiceNode> stack = new Stack<>();
+            stack.push(root);
+            for(ServiceNode child : root.getDependentServices()) {
+                stack.push(child);
             }
 
-            if (!service.isInstalled) {
-                service.isInstalled = true;
-                installedServiceList.add(service.name);
-                System.out.println("Installing "+service.name);
+            while (!stack.isEmpty()) {
+                ServiceNode serviceNode = stack.pop();
+                if (!serviceNode.isInstalled()){
+                    serviceNode.setInstalled(true);
+                    System.out.println("Installing " + serviceNode.name);
+                    installedServiceList.add(serviceNode);
+                }
             }
-
-            service.referenceCounter++;
         }
+
     }
 
     void printInstalledServices() {
-        for (String str : installedServiceList) {
-            System.out.println(str);
+        for (ServiceNode serviceNode : installedServiceList) {
+            System.out.println(serviceNode.name);
         }
     }
 
-    void removeService(String service) {
 
+    void removeService(String service) {
+        ServiceNode serviceNode = map.get(service);
+        serviceNode.uninstallService(map,installedServiceList);
     }
 
     List<String> parseCommand(String path) {
