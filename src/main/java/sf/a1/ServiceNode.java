@@ -8,9 +8,6 @@ import java.util.Set;
 /**
  * ServiceNode : ServiceNode
  *
- * @author: Mohit Aggarwal (mohitw@cisco.com)
- * @version: 0.1 11/23/21
- * @since: 0.1 11/23/21
  */
 public class ServiceNode {
     String name;
