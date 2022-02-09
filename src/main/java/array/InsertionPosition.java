@@ -2,10 +2,6 @@ package array;
 
 /**
  * InsertionPosition : InsertionPosition
- *
- * @author: Mohit Aggarwal (mohitw@cisco.com)
- * @version: 0.1 2/8/22
- * @since: 0.1 2/8/22
  */
 public class InsertionPosition {
     public static void main (String[] args) {
